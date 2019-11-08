@@ -3,7 +3,16 @@ dist: xenial
 python:
  - "3.8"
 
+branches:
+  only:
+    - master
+
 install:
   - pip install pipenv
-  - pipenv install
+  - pipenv install --dev
+
+script:
   - make test
+
+after_success:
+  - make publish

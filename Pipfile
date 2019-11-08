@@ -12,6 +12,7 @@ twine = "*"
 pytest = "*"
 pytest-xdist = "*"
 faker = "*"
+tox = "*"
 
 [packages]
 boto3 = "*"
