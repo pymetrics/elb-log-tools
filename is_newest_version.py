@@ -11,7 +11,7 @@ PACKAGE_NAME = "elb-log-tools"
 
 
 def make_versions_request(package_name):
-    repo_url = os.environ["TWINE_REPOSITORY_URL"]
+    repo_url = os.environ.get("PUBLIC_TWINE_REPOSITORY_URL", "https://pypi.org/simple")
     url = "{}/{}/json".format(repo_url, package_name)
     print(f"{url=}")
     username = os.environ.get("TWINE_USERNAME")
@@ -41,6 +41,7 @@ def versions(package_name):
 
 
 if __name__ == "__main__":
+    print(make_versions_request)
     CURRENT_VERSION = __version__  # noqa
     existing_versions = versions(PACKAGE_NAME)
     LATEST_PUBLISHED_VERSION = existing_versions[-1] if existing_versions else None

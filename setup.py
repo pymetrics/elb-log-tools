@@ -21,6 +21,7 @@ setup(
     version=about["__version__"],
     description="Tools for processing logs from AWS Elastic Load Balancer",
     long_description=readme,
+    long_description_content_type="text/markdown",
     author="Pymetrics, Inc.",
     author_email="info@pymetrics.com",
     url="https://github.com/pymetrics/elb-log-tools",
