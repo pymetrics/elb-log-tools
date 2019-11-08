@@ -13,7 +13,6 @@ PACKAGE_NAME = "elb-log-tools"
 def make_versions_request(package_name):
     repo_url = os.environ.get("PUBLIC_TWINE_REPOSITORY_URL", "https://pypi.org/simple")
     url = "{}/{}/json".format(repo_url, package_name)
-    print(f"{url=}")
     username = os.environ.get("TWINE_USERNAME")
     password = os.environ.get("TWINE_PASSWORD")
     password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
