@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 import os
-import sys
 from setuptools import setup
-from setuptools.command.test import test as TestCommand
+from typing import Dict
 
 here = os.path.abspath(os.path.dirname(__file__))
 src = os.path.join(here, "elb_log_tools")
@@ -11,7 +10,7 @@ src = os.path.join(here, "elb_log_tools")
 with open("README.md", "r") as f:
     readme = f.read()
 
-about = {}
+about: Dict[str, str] = {}
 with open(os.path.join(src, "__version__.py")) as f:
     exec(f.read(), about)
 

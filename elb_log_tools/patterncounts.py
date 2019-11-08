@@ -21,12 +21,13 @@ Outputs the patterns + counts as a CSV
 import argparse
 import csv
 import re
+from typing.re import Pattern
 import sys
 from collections import Counter
-from typing import Dict
+from typing import Dict, Optional
 
 
-def load_patterns(filename) -> Dict[re.Pattern, str]:
+def load_patterns(filename) -> Dict[Pattern, str]:
     patterns = {}
     with open(filename) as f:
         for line in f:
@@ -37,11 +38,12 @@ def load_patterns(filename) -> Dict[re.Pattern, str]:
     return patterns
 
 
-def match_line(pattern_dict: Dict[re.Pattern, str], line) -> str:
+def match_line(pattern_dict: Dict[Pattern, str], line) -> Optional[str]:
     line = line.strip()
     for rgx, pattern in pattern_dict.items():
         if rgx.match(line):
             return pattern
+    return None
 
 
 def print_counter(c: Counter, stream=sys.stdout) -> None:

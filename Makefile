@@ -11,5 +11,8 @@ test:
 is-newest-version:
 	python is_newest_version.py
 
+typecheck:
+	mypy elb_log_tools --ignore-missing-imports
+
 publish: is-newest-version clean dist
 	twine upload dist/*

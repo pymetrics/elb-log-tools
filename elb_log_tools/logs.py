@@ -32,7 +32,7 @@ DEFAULT_OUTPUT_ENCODING = "utf_8"
 DEFAULT_BUCKET_ENV_VAR = "ELB_LOG_BUCKET"
 
 
-def date_str(s: str) -> datetime:
+def date_str(s: str) -> date:
     try:
         return datetime.strptime(s, DATETIME_FMT).date()
     except ValueError:
@@ -70,7 +70,7 @@ def list_log_file_keys(
         yield log["Key"]
     token = resp.get("ContinuationToken", None)
     if token:
-        yield from list_log_file_keys(bucket=bucket, prefix=prefix, token=token)
+        yield from list_log_file_keys(client, bucket=bucket, prefix=prefix, token=token)
 
 
 def read_log_key(client, bucket: str, key: str) -> Generator[bytes, None, None]:

@@ -13,6 +13,7 @@ pytest = "*"
 pytest-xdist = "*"
 faker = "*"
 tox = "*"
+mypy = "*"
 
 [packages]
 boto3 = "*"
