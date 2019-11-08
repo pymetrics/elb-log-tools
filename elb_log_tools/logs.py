@@ -18,6 +18,7 @@ Does not currently support Gzipped logs.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import argparse
+import os
 import sys
 from datetime import date, datetime, timedelta
 from typing import Generator
@@ -25,10 +26,10 @@ from typing import Generator
 import boto3
 
 DATETIME_FMT = "%Y-%m-%d"
-DEFAULT_LOG_BUCKET = "production-pymcore-webserver-elb-access-logs"
 DEFAULT_REGION = "us-east-1"
 DEFAULT_INPUT_ENCODING = "cp437"  # after much trial and error this seems to work best
 DEFAULT_OUTPUT_ENCODING = "utf_8"
+DEFAULT_BUCKET_ENV_VAR = "ELB_LOG_BUCKET"
 
 
 def date_str(s: str) -> datetime:
@@ -56,7 +57,7 @@ def emit_dates(start_date: date, num_days: int) -> Generator[date, None, None]:
 
 
 def list_log_file_keys(
-    client, bucket=DEFAULT_LOG_BUCKET, prefix="", token=None
+    client, bucket, prefix="", token=None
 ) -> Generator[str, None, None]:
     """
     List all logs for the given date, optionally filtered by the given prefix.
@@ -81,7 +82,7 @@ def read_log_key(client, bucket: str, key: str) -> Generator[bytes, None, None]:
 
 
 def emit_lines(
-    start_date, num_days, bucket=DEFAULT_LOG_BUCKET, region=DEFAULT_REGION
+    start_date, num_days, bucket, region=DEFAULT_REGION
 ) -> Generator[bytes, None, None]:
     client = boto3.client("s3")
     account_id = get_account_id()
@@ -158,7 +159,15 @@ def detect_encoding(opts):
     print(f"Most failed: {fail_counts.most_common(n=3)}")
 
 
-def get_parser() -> argparse.ArgumentParser:
+def env_arg(key):
+    value = os.environ.get(key, None)
+    if value:
+        return {"default": value}
+    else:
+        return {"required": True}
+
+
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-s",
@@ -171,7 +180,7 @@ def get_parser() -> argparse.ArgumentParser:
         "-n", "--num-days", help="Number of days to emit.", type=int, default=1
     )
     parser.add_argument(
-        "-b", "--bucket", help="Log bucket name", default=DEFAULT_LOG_BUCKET
+        "-b", "--bucket", help="Log bucket name", **env_arg(DEFAULT_BUCKET_ENV_VAR)
     )
     parser.add_argument("-r", "--region", default=DEFAULT_REGION)
     parser.add_argument(
@@ -191,13 +200,9 @@ def get_parser() -> argparse.ArgumentParser:
         default=False,
         action="store_true",
     )
-    return parser
 
-
-def main():
-
-    parser = get_parser()
     args = parser.parse_args()
+
     try:
         if args.detect_encoding:
             detect_encoding(args)

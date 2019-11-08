@@ -1,6 +1,25 @@
 # ELB Log Tools
 
+Tools for processing logs from AWS Elastic Load Balancer
+
+## Installation
+
+```
+$ pip install elb-log-tools
+```
+
 ## Usage
+
+### Specifying the log bucket name
+
+There are two options:
+
+1. Set the ``ELB_LOG_BUCKET`` environment variable, or
+2. Pass the bucket name to ``elb-logs`` using the ``-b`` or ``--bucket`` argument.
+
+   ```
+   $ elb-logs -b my-log-bucket
+   ```
 
 ### Print ELB logs to stdout
 ```
@@ -23,8 +42,6 @@ $ elb-logs | elb-filter --include-statuses 301 302 | head -n 1
 ``elb-patterncounts`` matches URL paths against a list of regex patterns, and
 outputs the counts of requests matching the patterns in CSV format.
 
-
-
 ```
 # patterns.txt has all the URL patterns we want included in the report
 
@@ -37,7 +54,6 @@ Path,Hits
 /api2/accounts/config/,19251
 /health/,18891
 ```
-
 
 ## Examples
 
