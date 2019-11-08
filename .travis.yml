@@ -2,6 +2,8 @@ language: python
 dist: xenial
 python:
  - "3.8"
+ - "3.7"
+ - "3.6"
 
 branches:
   only:
@@ -10,9 +12,11 @@ branches:
 install:
   - pip install pipenv
   - pipenv install --dev
+  - pip install importlib_metadata  # needed for python < 3.8
+  - pip install -e .
 
 script:
-  - make test
+  - pipenv run pytest
 
 after_success:
   - make publish
