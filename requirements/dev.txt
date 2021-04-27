@@ -1,0 +1,7 @@
+-r test.txt
+ipython
+flake8
+black
+ipdb
+twine
+mypy
