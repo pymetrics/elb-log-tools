@@ -10,7 +10,7 @@ branches:
     - master
 
 install:
-  - pip install pipenv
+  - pip install -r requirements/dev.txt
   - pipenv install --dev
   - pip install importlib_metadata  # needed for python < 3.8
   - pip install -e .
