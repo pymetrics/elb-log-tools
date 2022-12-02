@@ -5,7 +5,7 @@ Also does not emit lines where the application server responded with a 404
 or 30x redirect.
 
 """
-# Copyright 2019 Pymetrics, Inc.
+# Copyright 2022 Pymetrics, Inc.
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

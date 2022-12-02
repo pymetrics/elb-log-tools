@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import os
-from setuptools import setup
 from typing import Dict
+
+from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 src = os.path.join(here, "elb_log_tools")
@@ -33,8 +34,9 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
         "Topic :: Internet :: Log Analysis",
     ],
     packages=["elb_log_tools"],

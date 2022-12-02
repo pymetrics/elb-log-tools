@@ -5,7 +5,7 @@ patterns.
 
 Outputs the patterns + counts as a CSV
 """
-# Copyright 2019 Pymetrics, Inc.
+# Copyright 2022 Pymetrics, Inc.
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@ Outputs the patterns + counts as a CSV
 import argparse
 import csv
 import re
-from typing.re import Pattern
 import sys
 from collections import Counter
 from typing import Dict, Optional
+from typing.re import Pattern
 
 
 def load_patterns(filename) -> Dict[Pattern, str]:
